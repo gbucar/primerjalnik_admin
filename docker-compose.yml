@@ -8,4 +8,4 @@ services:
     volumes:
       - ./:/app
     environment:
-      - ORIGIN=https://s5hjgvuaesh6peumgmk35kfu54.srv.us # change this to match your ssh keys
+      - ORIGIN=admin.primerjalnik.si # change this to match your ssh keys
