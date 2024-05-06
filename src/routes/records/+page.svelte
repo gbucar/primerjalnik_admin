@@ -1,17 +1,87 @@
 <script lang="ts">
 	import Records from '$lib/Records.svelte';
+	import UserForm from '$lib/UserForm.svelte';
+	import { formatDate } from '$lib/utils';
+	import { slide } from 'svelte/transition';
+	// import { linear } from 'svelte/easing';
 	export let data: any;
+	let hideZero: boolean = true;
+	let hideInactive: boolean = true;
+	let filter = '';
+	let start = '';
+	$: console.log(start);
+
+	let userShouldBeShown = (user: any, hideZero: boolean, hideInactive: boolean) => {
+		let now = new Date();
+		let start = user.start ? new Date(user.start) : null;
+		let end = user.end ? user.end : null;
+		return (
+			(user.records.length !== 0 || !hideZero) &&
+			user.email.toLowerCase().indexOf(filter.toLowerCase()) != -1 &&
+			((start && start < new Date() && (end ? end < new Date() : true)) || !hideInactive)
+		);
+	};
 </script>
 
-<Records user={data?.user} records={data?.records} />
+<div class="bg-white m-8 rounded-xl">
+	<button
+		class="font-bold bg-red-50"
+		on:click={() => {
+			data.users = data.users.map((user) => {
+				return { ...user, collapsed: true };
+			});
+		}}>skrči vse</button
+	>
+	<button
+		class="font-bold bg-red-50"
+		on:click={() => {
+			hideZero = !hideZero;
+		}}>{hideZero ? 'prikaži' : 'skrij'} brez posnetkov</button
+	>
+	<button
+		class="font-bold bg-red-50"
+		on:click={() => {
+			hideInactive = !hideInactive;
+		}}>{hideInactive ? 'prikaži' : 'skrij'} neaktivne</button
+	>
+	<label for="text">
+		išči:
+		<input name="filter" type="text" bind:value={filter} />
+	</label>
+</div>
+
+{#each data.users as user}
+	{#if userShouldBeShown(user, hideZero, hideInactive)}
+		<div class="bg-white m-8 rounded-xl shadow-sm">
+			<div class="flex flex-row items-center gap-2">
+				<button
+					class="text-xl font-bold"
+					on:click={() => (user = { ...user, collapsed: !user.collapsed })}
+					>{user.email} ({user.records.length})</button
+				>
+				<a class="hover:bg-gray-100 rounded-full px-2" href="/records/noisecapture#{user.email}"
+					>noise</a
+				>
+				<!-- <a href="/records/atmo#{user.email}">atmo</a> -->
+			</div>
+			{#if !user.collapsed}
+				<UserForm {user} atmotubes={data.atmotubes} />
+				<div transition:slide>
+					<Records user={data.user} records={user.records} />
+				</div>
+			{/if}
+		</div>
+	{/if}
+{/each}
 
 <small class="text-center w-screen block">
-    Tukaj so prikazani vsi posnetki iz NoiseCapture aplikacije ob naslednjih pogojih:
-    <br /> 
-    <ul class="list-disc hover:list-disc">
-        <li>Posnetek je daljši od dveh minut</li>
-        <li>V času posnetka so na voljo popolni podatki iz Atmotube-a (pm1, pm2.5, pm10)</li>
-    </ul>
-    <br /> 
-    Če se vam zdi, da posnetek manjka, nas prosim obvestite: <a class="text-gray-500" href="mailto:nbmyghig@duck.com">nbmyghig@duck.com</a>
+	Tukaj so prikazani vsi posnetki iz NoiseCapture aplikacije ob naslednjih pogojih:
+	<br />
+	<ul class="list-disc hover:list-disc">
+		<li>Posnetek je daljši od dveh minut</li>
+		<li>V času posnetka so na voljo popolni podatki iz Atmotube-a (pm1, pm2.5, pm10)</li>
+	</ul>
+	<br />
+	Če se vam zdi, da posnetek manjka, nas prosim obvestite:
+	<a class="text-gray-500" href="mailto:nbmyghig@duck.com">nbmyghig@duck.com</a>
 </small>

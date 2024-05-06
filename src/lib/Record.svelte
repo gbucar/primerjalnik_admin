@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { PUBLIC_MAPBOX_API_KEY } from '$env/static/public';
 	import { calculateColor, formatDate, formatIntakeNg, formatTime } from './utils';
+	export let owner: string = '';
 	export let record: any;
 	export let no_alternative: boolean = false;
 	let loading = false;
@@ -28,6 +29,7 @@
 		<div class="data">
 			<div>
 				<div>
+					<h2>{owner}</h2>
 					Zaseben posnetek:
 					<input
 						name="private"
@@ -39,21 +41,21 @@
 						on:change={() => form?.requestSubmit()}
 					/>
 				</div>
-                {#if !no_alternative}
-                    <div>
-                        <!-- We might want to change this to a checkbox -->
-                        Pot:
-                        <select
-                            name="alternative"
-                            bind:value={record.alternative}
-                            disabled={loading}
-                            on:change={() => form?.requestSubmit()}
-                        >
-                            <option value={false}>Originalna</option>
-                            <option value={true}>Alternativna</option>
-                        </select>
-                    </div>
-                {/if}
+				{#if !no_alternative}
+					<div>
+						<!-- We might want to change this to a checkbox -->
+						Pot:
+						<select
+							name="alternative"
+							bind:value={record.alternative}
+							disabled={loading}
+							on:change={() => form?.requestSubmit()}
+						>
+							<option value={false}>Originalna</option>
+							<option value={true}>Alternativna</option>
+						</select>
+					</div>
+				{/if}
 
 				<p>
 					{formatDate(record.start)}

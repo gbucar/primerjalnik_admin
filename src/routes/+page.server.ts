@@ -2,14 +2,7 @@ import { validateNoisecaptureId } from "$lib/utils";
 import { redirect } from "@sveltejs/kit";
 
 export const load = async ({ locals, url }: any) => {
-    try {
-        const atmotube_id = structuredClone(await locals.pb.collection("atmotubes").getOne(locals.user.atmotube_id)).atmotube_id;
-        locals.user.atmotube_id = atmotube_id;
-    }
-    catch (error) {
-        throw redirect(303, "/noEntry");
-    }
-    return { userProfile: locals.user, passwordChangeSent: url.searchParams.get("passwordChangeSent") };
+    return { userProfile: locals.user };
 }
 
 export const actions = {
@@ -34,20 +27,5 @@ export const actions = {
             const userProfile = structuredClone(await locals.pb.collection("users").getOne(locals.user.id));
             return { error: "Napaka pri pisanju", ...userProfile };
         }
-    },
-    passwordChangeRequest: async ({ locals, url }: any) => {
-        const success = await locals.pb.collection("users").requestPasswordReset(locals?.user?.email);
-        throw redirect(303, url.href.split("?")[0] + "?passwordChangeSent=" + success);
-    },
-
-    uploadNoisecaptureFile: async ({ locals, request }: any) => {
-        const formData = await request.formData();
-        try {
-            await locals.pb.collection("noisecapture_zip_files").create(formData);
-        } catch (err) {
-            console.log(err);
-            const userProfile = structuredClone(await locals.pb.collection("users").getOne(locals.user.id));
-            return { error: "Napaka pri pisanju", ...userProfile };
-        }
-    },
+    }
 }

@@ -5,18 +5,12 @@
 	export let form: any;
 	export let data: any;
 
-	// TODO: make some sort of alert system
-	if (data.passwordChangeSuccess && browser) alert('Uspešna sprememba gesla!');
-	else if (data.passwordChangeSuccess == false && browser) alert('Sprememba gesla neuspešna!');
-
 	$: if (browser && form?.error) alert(form.error);
 </script>
 
 <form action="?/signIn" method="POST">
-	<h1 class="font-bold text-lg">Prijava</h1>
-	{#if form?.notVerified}
-		<div class="text-red-700" transition:slide|local>Potrdite svoj e-mail naslov</div>
-	{/if}
+	<h1 class="font-bold text-lg">Admin prijava</h1>
+
 	<label for="username">
 		<input required name="username" type="text" placeholder="Uporabniško ime" />
 	</label>
@@ -26,8 +20,7 @@
 	</label>
 
 	<div>
-		<!-- <a class="bg-amber-200 text-amber-100" href="/auth/register"> Registracija </a> -->
-		<button class="bg-amber-600 text-amber-50" type="submit"> Prijava </button>
+		<button class="bg-red-600 text-red-50" type="submit"> Prijava </button>
 	</div>
 </form>
 

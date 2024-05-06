@@ -7,3 +7,9 @@ export const actions = {
         return structuredClone(record);
     },
 }
+
+export const load = async ({ locals }) => {
+    return {
+        atmotubes: structuredClone(await locals.pb.collection("atmotubes").getFullList())
+    }
+}

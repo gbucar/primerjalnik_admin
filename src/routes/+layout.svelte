@@ -10,7 +10,7 @@
 {#if data?.user}
 	<nav class="flex flex-row justify-between transition:slide|local">
 		<div class="flex flex-row">
-			<a class="nav-link font-bold" href="/records">Meritve</a>
+			<a class="nav-link font-bold" href="/records">Vse Meritve</a>
 			<a class="nav-link" href="/records/comparison">Rezultati</a>
 			<a class="nav-link" href="/records/atmo">Atm</a>
 			<a class="nav-link" href="/records/noisecapture">Noise</a>
@@ -27,7 +27,7 @@
 				class="rounded-full transition-all"
 				src="https://ui-avatars.com/api/?name={data.user.email.split(
 					'@'
-				)[0]}&bold=true&background=eab308&color=ffffff"
+				)[0]}&bold=true&background=dc2626&color=ffffff"
 				alt=""
 			/>
 		</button>
