@@ -6,8 +6,11 @@ export const load: PageServerLoad = async ({ locals, url }) => {
     let atmotube_id: string = "";
     if (atmotube == null)
         return { atmotubeData: [] }
+
     if (atmotube.match(/^[a-fA-F0-9:]{17}|[a-fA-F0-9]{12}$/) == null) {
-        atmotube_id = (await locals.pb.collection("atmotubes").getFirstListItem(`id="${atmotube}"`))["atmotube_id"];
+        atmotube_id = (await locals.pb.collection("atmotubes").getFirstListItem(`id="${atmotube}" || atmotube_id="${atmotube}"`))["atmotube_id"];
+    } else {
+        atmotube_id = atmotube;
     }
 
     let atmotubeApiUrl = "https://api.atmotube.com/api/v1/data?";

@@ -19,6 +19,7 @@
 		<th>pm 10 (μg)</th>
 		<th>temperatura (°C)</th>
 		<th>vlaga (%)</th>
+		<th>VOC</th>
 	</tr>
 	{#each data.atmotubeData.sort((a, b) => new Date(a.time) - new Date(b.time)) as point, i}
 		<tr class="text-center">
@@ -30,6 +31,7 @@
 			<td>{point.pm10 || '/'}</td>
 			<td>{point.t || '/'}</td>
 			<td>{point.h || '/'}</td>
+			<td>{point.voc || '/'}</td>
 		</tr>
 	{/each}
 </table>
