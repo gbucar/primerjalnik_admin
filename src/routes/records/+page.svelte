@@ -9,9 +9,8 @@
 	let hideInactive: boolean = true;
 	let filter = '';
 	let start = '';
-	$: console.log(start);
 
-	let userShouldBeShown = (user: any, hideZero: boolean, hideInactive: boolean) => {
+	let userShouldBeShown = (user: any, hideZero: boolean, hideInactive: boolean, filter:string) => {
 		let now = new Date();
 		let start = user.start ? new Date(user.start) : null;
 		let end = user.end ? user.end : null;
@@ -51,7 +50,7 @@
 </div>
 
 {#each data.users as user}
-	{#if userShouldBeShown(user, hideZero, hideInactive)}
+	{#if userShouldBeShown(user, hideZero, hideInactive, filter)}
 		<div class="bg-white m-8 rounded-xl shadow-sm">
 			<div class="flex flex-row items-center gap-2">
 				<button
