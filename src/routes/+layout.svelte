@@ -101,7 +101,11 @@
 		<small class="font-extrabold">Kontakt</small>
 		<ul>
 			<li>
-				<small>Tehnične težave: <b>znađi se</b></small>
+				<small>
+					Tehnične težave: <b>
+						<a href="https://m.youtube.com/watch?v=dQw4w9WgXcQ">znađi se</a>
+					</b>
+				</small>
 			</li>
 		</ul>
 	</div>
