@@ -23,28 +23,21 @@
 </script>
 
 <div class="bg-white m-8 rounded-xl">
-	<button
-		class="font-bold bg-red-50"
-		on:click={() => {
-			data.users = data.users.map((user) => {
-				return { ...user, collapsed: true };
-			});
-		}}>skrči vse</button
-	>
-	<button
-		class="font-bold bg-red-50"
-		on:click={() => {
-			hideZero = !hideZero;
-		}}>{hideZero ? 'prikaži' : 'skrij'} brez posnetkov</button
-	>
-	<button
-		class="font-bold bg-red-50"
-		on:click={() => {
-			hideInactive = !hideInactive;
-		}}>{hideInactive ? 'prikaži' : 'skrij'} neaktivne</button
-	>
+    {#if true}
+        <button
+            class="font-bold bg-red-50"
+            on:click={() => {
+                data.users = data.users.map((user) => {
+                    return { ...user, collapsed: true };
+                });
+            }}>collapse all</button>
+    {/if}
+    show participants without records:
+    <input bind:checked={hideZero} type="checkbox" />
+    show inactive:
+    <input bind:checked={hideInactive} type="checkbox" />
 	<label for="text">
-		išči:
+		search:
 		<input name="filter" type="text" bind:value={filter} />
 	</label>
 </div>
@@ -72,15 +65,3 @@
 		</div>
 	{/if}
 {/each}
-
-<small class="text-center w-screen block">
-	Tukaj so prikazani vsi posnetki iz NoiseCapture aplikacije ob naslednjih pogojih:
-	<br />
-	<ul class="list-disc hover:list-disc">
-		<li>Posnetek je daljši od dveh minut</li>
-		<li>V času posnetka so na voljo popolni podatki iz Atmotube-a (pm1, pm2.5, pm10)</li>
-	</ul>
-	<br />
-	Če se vam zdi, da posnetek manjka, nas prosim obvestite:
-	<a class="text-gray-500" href="mailto:nbmyghig@duck.com">nbmyghig@duck.com</a>
-</small>
