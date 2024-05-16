@@ -14,11 +14,13 @@
 	{#if manual}
 		<button on:click={() => (addRecord = !addRecord)}>+</button>
 	{/if}
+
 	{#if addRecord}
 		<div class="add-record" transition:slide>
 			<AddRecord bind:visible={addRecord} {user} />
 		</div>
 	{/if}
+
 	{#each records as record}
 		<Record bind:manual {record} no_alternative={user.no_alternative} />
 	{/each}

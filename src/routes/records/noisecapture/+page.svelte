@@ -4,7 +4,7 @@
 </script>
 
 {#each data.users.filter((a) => a.noise.length) as user}
-	<table class="w-[900px]">
+	<table class="w-[1100px]">
 		<h2 id={user.email} class="p-2 font-bold text-xl">{user.email}</h2>
 		<tr>
 			<th class="w-2">zap.št.</th>
@@ -16,8 +16,9 @@
 			<th>leq mean</th>
 			<th>url</th>
 			<th>atmotube meritve</th>
+			<th>težava</th>
 		</tr>
-		{#each user.noise as record, i}
+		{#each user.noise.filter(a => a.error_message != "too old / too short") as record, i}
 			<tr class="text-center">
 				<td>{i + 1}.</td>
 				<td>{formatDate(new Date(record.start))}</td>
@@ -29,8 +30,8 @@
 				<td><a href={record.url}>prenesi</a></td>
 				<td
 					><a href={`/records/atmo?date=${record.start}&atmotube_id=${user.atmotube_id}`}>link</a
-					></td
-				>
+					></td>
+				<td>{record.error_message || '/'}</td>
 			</tr>{/each}
 	</table>
 {/each}

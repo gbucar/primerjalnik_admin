@@ -103,11 +103,7 @@
 		<small class="font-extrabold">Kontakt</small>
 		<ul>
 			<li>
-				<small
-					>Tehnične težave: <a class="hover:underline font-bold" href="mailto:nbmyghig@duck.com"
-						>nbmyghig@duck.com</a
-					></small
-				>
+				<small>Tehnične težave: <b>znađi se</b></small>
 			</li>
 		</ul>
 	</div>
