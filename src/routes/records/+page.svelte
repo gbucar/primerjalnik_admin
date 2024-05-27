@@ -80,7 +80,7 @@
 						{#if user.noisecapture_id}
 							<Tick />
 						{:else}
-							<cross />
+							<Cross />
 						{/if}
 					</div>
 				</div>
