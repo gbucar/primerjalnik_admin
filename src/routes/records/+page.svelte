@@ -15,11 +15,11 @@
 	let userShouldBeShown = (user: any, hideZero: boolean, hideInactive: boolean, filter: string) => {
 		let now = new Date();
 		let start = user.start ? new Date(user.start) : null;
-		let end = user.end ? user.end : null;
+		let end = user.end ? new Date(user.end) : null;
 		return (
 			(user.records.length !== 0 || !hideZero) &&
 			user.email.toLowerCase().indexOf(filter.toLowerCase()) != -1 &&
-			((start && start < new Date() && (end ? end < new Date() : true)) || !hideInactive)
+			((start && start < now && (end ? now < end : true)) || !hideInactive)
 		);
 	};
 </script>
